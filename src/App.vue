@@ -1,23 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <h3 :class="addClass ? 'textColorRed' : 'textColorBlack'">
+      Result:{{ counter }}
+    </h3>
+    <button @click="counter += 1">+</button>
+    <button @click="counter -= 1">-</button>
+    <!-- <HelloWorld msg="sayHello" /> -->
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
 
-@Component({
+export default {
+  name: "App",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
-})
-export default class App extends Vue {}
+  props: {
+    getTestProps: {
+      type: String,
+      default: "Fuck you",
+    },
+  },
+
+  data() {
+    return {
+      counter: 0,
+      addClass: false,
+    };
+  },
+  watch: {
+    counter(value) {
+      if (value === 1) {
+        this.addClass = true;
+        return;
+      }
+      this.addClass = false;
+    },
+  },
+};
 </script>
 
 <style>
+.textColorRed {
+  color: red;
+}
+
+.textColorBlack {
+  color: black;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
